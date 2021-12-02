@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;netstandard2.1;netcoreapp3.1;net471;net6.0</TargetFrameworks>
+    <DebugType>embedded</DebugType>
+    <Version>2.15.0</Version>
+    <Authors>NerdHub Technologie,WinMister332</Authors>
+    <Company>NerdHub Technologies</Company>
+    <Description>CommandSharp is a command processing API for .NET built with C#.</Description>
+    <Copyright>Copyright (c) 2017-2022 NerdHub Technologies, All rights reserved.</Copyright>
+    <PackageProjectUrl>https://www.bitbucket.org/nerdhubtech/CommandSharp/</PackageProjectUrl>
+    <PackageIcon>CommandSharp.png</PackageIcon>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <RepositoryUrl>https://bitbucket.org/nerdhubtech/commandsharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Commands;Command Processing;Command Invoking;Custom Commands;.NET6.0,C#</PackageTags>
+    <PackageReleaseNotes>Added cd command, and started work on ls command. Created new Readme.md file, and cleaned up code.</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="CommandSharp.png">
+	    <Pack>True</Pack>
+		<PackagePath>\</PackagePath>
+	</None>
+	<None Include="Readme.md">
+	    <Pack>True</Pack>
+		<PackagePath>\</PackagePath>
+	</None>
+  </ItemGroup>
+</Project>

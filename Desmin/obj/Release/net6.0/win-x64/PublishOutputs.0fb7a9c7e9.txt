@@ -1,0 +1,2 @@
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\publish\win-x64\Desmin.pdb
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\publish\win-x64\Desmin.exe

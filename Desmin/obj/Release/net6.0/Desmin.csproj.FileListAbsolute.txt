@@ -1,0 +1,15 @@
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\Desmin.exe
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\Desmin.deps.json
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\Desmin.runtimeconfig.json
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\Desmin.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\ref\Desmin.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\bin\Release\net6.0\CommandSharp.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.csproj.AssemblyReference.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.AssemblyInfoInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.AssemblyInfo.cs
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.csproj.CoreCompileInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.csproj.CopyComplete
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\ref\Desmin.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\Desmin\obj\Release\net6.0\Desmin.genruntimeconfig.cache

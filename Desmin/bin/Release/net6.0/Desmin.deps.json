@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Desmin/1.0.0": {
+        "dependencies": {
+          "CommandSharp": "2.15.0"
+        },
+        "runtime": {
+          "Desmin.dll": {}
+        }
+      },
+      "CommandSharp/2.15.0": {
+        "runtime": {
+          "CommandSharp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Desmin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CommandSharp/2.15.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
