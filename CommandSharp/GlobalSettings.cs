@@ -21,37 +21,11 @@ namespace CommandSharp
 {
     public static class GlobalSettings
     {
-        public static ConsoleColor DefaultForeColor { get; set; } = ConsoleColor.White;
-        public static ConsoleColor DefaultBackColor { get; set; } = ConsoleColor.DarkBlue;
-        public static ConsoleColor CurrentForeColor
-        {
-            get => Console.ForegroundColor;
-            set => Console.ForegroundColor = value;
-        }
-        public static ConsoleColor CurrentBackColor
-        {
-            get => Console.BackgroundColor;
-            set => Console.BackgroundColor = value;
-        }
-        public static bool AcceptEchoOut { get; set; } = true;
 #if DEBUG
         public static bool OutputDebugData { get; set; } = false;
 #endif
-        private static string currUsr = Environment.UserName;
-        private static string sysName = Environment.MachineName;
 
-        public static string CurrentUser
-        {
-            get => currUsr;
-            set => currUsr = value;
-        }
-
-        public static string CurrentDirectory
-        {
-            get => Directory.GetCurrentDirectory();
-            set => Environment.CurrentDirectory = Path.GetFullPath(value);
-        }
-
+        private static string sysName = "CommandSharp";
         public static string MachineName
         {
             get => sysName;

@@ -22,16 +22,26 @@ namespace CommandSharp
     public sealed class EchoMessage
     {
         private List<MessageNode> messages;
+        private CommandPrompt prompt;
 
         public EchoMessage(params MessageNode[] nodes)
         {
             messages = new List<MessageNode>();
-            messages.AddRange(nodes);
+            AddNodes(nodes);
+        }
+
+        private void AddNode(MessageNode node)
+            => messages.Add(node);
+
+        private void AddNodes(MessageNode[] nodes)
+        {
+            foreach (MessageNode node in nodes)
+                AddNode(node);
         }
 
         public MessageNode[] GetMessageNodes() => messages.ToArray();
 
-        public void Display()
+        public void Display(CommandPrompt prompt)
         {
             //Get the "orginal" color.
             var col = Console.ForegroundColor;
@@ -46,24 +56,32 @@ namespace CommandSharp
                 else if (msgType == MessageType.DIRECTORY_PATH)
                 {
                     var x = node.GetMessageText();
-                    if (!(x.ToLower().Equals(GlobalSettings.CurrentDirectory)))
-                        message = GlobalSettings.CurrentDirectory;
+                    if (!(x.ToLower().Equals(prompt.CurrentDirectory)))
+                        message = prompt.CurrentDirectory;
                     else
                         message = x;
                 }
                 else if (msgType == MessageType.MACHINE_NAME)
                 {
                     var x = node.GetMessageText();
-                    if (!(x.ToLower().Equals(GlobalSettings.MachineName)))
-                        message = GlobalSettings.MachineName;
+                    if (!(x.ToLower().Equals(prompt.MachineName)))
+                        message = prompt.MachineName;
+                    else
+                        message = x;
+                }
+                else if (msgType == MessageType.USERNAME)
+                {
+                    var x = node.GetMessageText();
+                    if (!(x.ToLower().Equals(prompt.CurrentUser)))
+                        message = prompt.CurrentUser;
                     else
                         message = x;
                 }
                 else
                 {
                     var x = node.GetMessageText();
-                    if (!(x.ToLower().Equals(GlobalSettings.CurrentUser)))
-                        message = GlobalSettings.CurrentUser;
+                    if (!(x.ToLower().Equals(prompt.CurrentUser)))
+                        message = prompt.CurrentUser;
                     else
                         message = x;
                 }
@@ -80,6 +98,7 @@ namespace CommandSharp
         private string _message;
         private MessageType _messageType;
         private ConsoleColor _color;
+        private static EchoMessage nParent;
         
         MessageNode(MessageType type, ConsoleColor color, string message)
         {
@@ -97,9 +116,10 @@ namespace CommandSharp
 
         public static MessageNode NEWLINE = NewMessageNode(Environment.NewLine);
         public static MessageNode WHITESPACE = NewMessageNode(" ");
-        public static MessageNode USERNAME = NewMessageNode(GlobalSettings.CurrentUser, ConsoleColor.DarkCyan, MessageType.USERNAME);
-        public static MessageNode MACHINE_NAME = NewMessageNode(GlobalSettings.MachineName, ConsoleColor.Green, MessageType.MACHINE_NAME);
-        public static MessageNode CURRENT_DIRECTORY = NewMessageNode(GlobalSettings.CurrentDirectory, ConsoleColor.Yellow, MessageType.DIRECTORY_PATH);
+        public static MessageNode USERNAME = NewMessageNode(
+            "", ConsoleColor.DarkCyan, MessageType.USERNAME);
+        public static MessageNode MACHINE_NAME = NewMessageNode("", ConsoleColor.Green, MessageType.MACHINE_NAME);
+        public static MessageNode CURRENT_DIRECTORY = NewMessageNode("", ConsoleColor.Yellow, MessageType.DIRECTORY_PATH);
     }
 
     public enum MessageType

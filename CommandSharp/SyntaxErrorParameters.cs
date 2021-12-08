@@ -53,21 +53,25 @@ namespace CommandSharp
 
         public string GetLegend(out int length)
         {
-            List<string> sL = new List<string>();
             var n = GetLegendArr();
-            var x = GetLongestLine(n);
+            length = GetLongestLine(n);
+            List<string> sL = new List<string>();
             foreach (string s in n)
             {
                 sL.Add(s);
             }
-            StringBuilder b = new StringBuilder();
-            for (int i = 0; i < sL.Count; i++)
+            StringBuilder builder = new StringBuilder();
+            var l = new string('-', length);
+            var lxLen = "=|LEGEND|=".Length;
+            var xlnLen = l.Length - lxLen;
+            var xLen = lxLen / 2;
+            builder.Append($"{new string('-', xLen)}=|LEGEND|={new string('-', xLen)}");
+            foreach (string s in sL)
             {
-                if (i == (sL.Count - 1))
-                    b.Append(sL);
+                builder.AppendLine(s);
             }
-            length = x;
-            return b.ToString();
+            builder.Append(l);
+            return builder.ToString();
         }
     }
 }

@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0047:Remove unnecessary parentheses", Justification = "<Pending>", Scope = "member", Target = "~M:CommandSharp.CommandArguments.GetChains~System.String[]")]
+[assembly: SuppressMessage("Style", "IDE0047:Remove unnecessary parentheses", Justification = "<Pending>", Scope = "member", Target = "~M:CommandSharp.CommandArguments.RemapArgs")]

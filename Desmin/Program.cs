@@ -27,6 +27,7 @@ public sealed class Program
             new DesminCommands.VerCommand(),
             new DesminCommands.ExitCommand(),
             new DesminCommands.ColorCommand(),
+            new DesminCommands.ShellCommand(),
         });
     }
 
@@ -249,6 +250,48 @@ public sealed class DesminCommands
             public IReadOnlyDictionary<ColorIdentifier, ConsoleColor> GetColors() => colors;
 
             public static ColorMap GetColorMap() => new ColorMap();
+        }
+    }
+    public sealed class ShellCommand : Command
+    {
+        private static readonly CommandData data = new CommandData("shell", "Runs a shell file.", new string[] { "sh", "dsh", "duskshell", "desminshell" });
+
+        public ShellCommand() : base(data) { }
+
+        public override bool OnInvoke(CommandInvokeParameters e)
+        {
+            var args = e.Arguments;
+            if (args.IsEmpty)
+                return false;
+            else
+            {
+                if (e.Arguments.Count == 1)
+                {
+                    var path = Path.GetFullPath(args.GetArgumentAtPosition(0));
+                    CommandSharp.ShellParser.ShellParser parser = new CommandSharp.ShellParser.ShellParser(e.Invoker);
+                    parser.ParseShell(path, "\r\n", forceDSH: true);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+    }
+    public sealed class UtilsTestCommand : Command
+    {
+        private static readonly CommandData data = new CommandData("utils", "", hideCommand: true);
+
+        public UtilsTestCommand() : base(data) { }
+
+        public override bool OnInvoke(CommandInvokeParameters e)
+        {
+            var args = e.Arguments;
+            if (!(args.IsEmpty) && args.StartsWith("insert"))
+            {
+                //Insert At Tests.
+                return true;
+            }
+            return false;
         }
     }
 }

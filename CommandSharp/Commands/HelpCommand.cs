@@ -99,7 +99,7 @@ namespace CommandSharp.Commands
                         bool printDesc = !Utilities.IsNullWhiteSpaceOrEmpty(cmd.GetDescription());
                         bool printSyntax = !Utilities.IsNullWhiteSpaceOrEmpty(synt);
                         var a = cmd.GetAliases();
-                        bool printAliases = !(a.Length < 1 || a == null);
+                        bool printAliases = (a != null) || (a != null && a.Length > 0);
                         builder.AppendLine(s);
                         if (printDesc)
                             builder.AppendLine("Description: " + cmd.GetDescription());

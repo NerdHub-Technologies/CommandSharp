@@ -20,27 +20,12 @@ using System.Text;
 
 namespace CommandSharp
 {
-    //TODO: Add --key:value and --key=value optionals.
-    //TODO: Add "multi-set switch" -xfzd which is essentially -x -f -z -d
+    //TODO: Add more supporting functions for valued and optional switches.
     public class CommandArguments
     {
         private List<string> arguments;
 
         #region Ctors
-
-        //TODO: Have the Ctor(s) check for chained switches. If there's a chained switch then:
-        /*
-         * Get the index of the chained switch. 
-         * Remove the chained switch from the array.
-         * Replaced the chained values with short switch values.
-         * 
-         * Example:
-         * -abc
-         * BECOMES:
-         * -a -b -c
-         * 
-         * Verify the existance of a chained switch by checking for a short switch that is longer then 1.
-         */
 
         public CommandArguments(string[] arguments)
         {
@@ -51,8 +36,8 @@ namespace CommandSharp
             if (arguments != null)
                 this.arguments.AddRange(arguments);
 
-            //if (!IsEmpty)
-            //    MapChainedSwitches();
+            if (!IsEmpty)
+                RemapArgs();
         }
 
         public CommandArguments(List<string> arguments)
@@ -62,8 +47,8 @@ namespace CommandSharp
             else
                 this.arguments = arguments;
 
-            //if (!IsEmpty)
-            //    MapChainedSwitches();
+            if (!IsEmpty)
+                RemapArgs();
         }
 
         #endregion
@@ -80,7 +65,7 @@ namespace CommandSharp
         /// Denotes whether arguments are present.
         /// </summary>
         public bool IsEmpty
-            => arguments.Count <= 0;
+            => arguments == null || arguments.Count <= 0;
 
         /// <summary>
         /// Gets a command at the specified argument position as it was processed.
@@ -120,6 +105,48 @@ namespace CommandSharp
             }
             return switches.ToArray();
         }
+
+        /// <summary>
+        /// Get an argument at the specified position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <returns></returns>
+        public string this[int position]
+            => (!IsEmpty) ? GetArgumentAtPosition(position) : "";
+
+        /// <summary>
+        /// Get the value after the specified 'shortNamedSwitch' value.
+        /// </summary>
+        /// <param name="shortNamedSwitch">A short-named switch. (-c)</param>
+        /// <returns></returns>
+        public string this[char shortNamedSwitch]
+            => (!IsEmpty) ? GetArgumentAfterSwitch(shortNamedSwitch) : "";
+
+        /// <summary>
+        /// Get the value after the specified 'longNamedSwitch' value.
+        /// </summary>
+        /// <param name="longNamedSwitch">A long-named switch. (--string)</param>
+        /// <returns></returns>
+        public string this[string longNamedSwitch]
+            => (!IsEmpty) ? GetArgumentAfterSwitch(longNamedSwitch) : "";
+
+        /// <summary>
+        /// Check if the 'shortNamedSwich' value is at the specified position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="shortNamedSwitch">The short-named switch (-c) to check.</param>
+        /// <returns></returns>
+        public bool this[int position, char shortNamedSwitch]
+            => (!IsEmpty) ? IsSwitchAtPosition(position, shortNamedSwitch) : false;
+
+        /// <summary>
+        /// Check if the 'longNamedSwitch' value is at the specified position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="longNamedSwitch">The long-named switch (--string) to check.</param>
+        /// <returns></returns>
+        public bool this[int position, string longNamedSwitch]
+            => (!IsEmpty) ? IsSwitchAtPosition(position, longNamedSwitch) : false;
 
         #endregion
 
@@ -353,140 +380,101 @@ namespace CommandSharp
             return GetArgumentAtPosition(index);
         }
 
+        /* 
+         2.15 will also have “Optional” and “Valued” switches. An optional is ‘-v:value’ where a valued is ‘-v=value’, I’m not sure if I’ll have full support for variables yet either. Even the Dusk version doesn’t really have that. (An optional switch can be used with a short and full name switch, where valued can only be short-name, at least for now.)
+         */
+
+        public string GetValuedSwitchAtPosition(int position)
+        {
+            if (!IsEmpty)
+            {
+                var arg = GetArgumentAtPosition(position);
+                var c1 = arg[0];
+                var c2 = arg[1];
+                if ((c1 == '-' && c2 != '-') && arg.Contains('='))
+                    return arg;
+            }
+            return "";
+        }
+
+        public string GetValueOfValuedSwitch(string valuedSwitch)
+        {
+            var x = Utilities.Split(valuedSwitch, "=");
+            var val = x[1];
+            if (!Utilities.IsNullWhiteSpaceOrEmpty(val))
+                return val;
+            else return "";
+        }
+
+        public string GetValueOfValuedSwitchAtPosition(int position)
+        {
+            var n = GetValuedSwitchAtPosition(position);
+            return GetValueOfValuedSwitch(n);
+        }
+
+        public string GetOptionalSwitchAtPosition(int position)
+        {
+            if (!IsEmpty)
+            {
+                var arg = GetArgumentAtPosition(position);
+                var c1 = arg[0];
+                var c2 = arg[1];
+                if ((c1 == '-' || (c1 == '-' && c2 == '-')) && arg.Contains(':'))
+                    return arg;
+            }
+            return "";
+        }
+
+        public string GetValueOfOptionalSwitch(string valuedSwitch)
+        {
+            var x = Utilities.Split(valuedSwitch, ":");
+            var val = x[1];
+            if (!Utilities.IsNullWhiteSpaceOrEmpty(val))
+                return val;
+            else return "";
+        }
+
+        public string GetValueOfOptionalSwitchAtPosition(int position)
+        {
+            var n = GetOptionalSwitchAtPosition(position);
+            return GetValueOfOptionalSwitch(n);
+        }
+
         #endregion
 
         #region Internal Functions and Methods
 
-        //private string[] GetAllChainedSwitches()
-        //{
-        //    List<string> chains = new List<string>();
-        //    //Iterate through ALL arguments.
-        //    foreach (var arg in GetArguments())
-        //    {
-        //        var c1 = arg[0];
-        //        var c2 = arg[1];
-
-        //        if (((c1 == '-') && !(c2 == '-')) && arg.Length > 2)
-        //        {
-        //            chains.Add(arg);
-        //        }
-        //        else
-        //            continue;
-        //    }
-        //    return (!(chains == null) && chains.Count > 0) ? chains.ToArray() : new string[0];
-        //}
-
-        //private KeyValuePair<int, string[]>[] GetChainedValues()
-        //{
-        //    List<KeyValuePair<int, string[]>> vars = new List<KeyValuePair<int, string[]>>();
-        //    var x = GetAllChainedSwitches();
-        //    System.Diagnostics.Debug.WriteLine($"Chains: {Utilities.ArrayToString(x)}");
-        //    if (x.Length <= 0)
-        //        return new KeyValuePair<int, string[]>[0];
-        //    else
-        //    {
-        //        for (int i = 0; i < x.Length; i++)
-        //        {
-        //            var val = x[i];
-        //            var ix = val.Length;
-        //            List<string> lx = new List<string>(ix);
-        //            foreach (char c in val)
-        //            {
-        //                if (c != '-' && !(c == ' ' || c == '"' || c == '\\'))
-        //                {
-        //                    lx.Add($"-{c}");
-        //                }
-        //                else
-        //                    continue;
-        //            }
-        //            if (lx.Count > 0)
-        //                vars.Add(new KeyValuePair<int, string[]>(i, lx.ToArray()));
-        //            else
-        //                continue;
-        //        }
-        //    }
-
-        //    return (vars.Count > 0) ? vars.ToArray() : new KeyValuePair<int, string[]>[0];
-        //}
-
-        //private void MapChainedSwitches()
-        //{
-        //    foreach (var kvp in GetChainedValues())
-        //    {
-                
-        //    }
-        //}
-
-        //Get the actual chains.
-        private string[] GetChains()
+        private void RemapArgs()
         {
-            //-abcd would be a chain.
-            if (!IsEmpty)
+            for (int i = 0; i < Count; i++)
             {
-                List<string> chains = new List<string>();
-                var x = GetSwitches();
-                foreach (var sw in x)
-                {
-                    //Check if the switch is a short-named switch, or if it's a long named switch.
-                    var c1 = sw[0];
-                    var c2 = sw[1];
+                var arg = GetArgumentAtPosition(i);
+                var c1 = arg[0];
+                var c2 = arg[1];
 
-                    if ((c1 == '-' && !(c2 == '-')) && sw.Length > 2)
+                if (arg.Length > 2 && (c1 == '-' && c2 != '-'))
+                {
+                    List<string> nArgs = new List<string>();
+
+                    arg = arg.Remove(0, 1);
+                    if (arg.Contains(":"))
+                        arg = arg.Remove(arg.IndexOf(':'));
+                    if (arg.Contains("="))
+                        arg = arg.Remove(arg.IndexOf('='));
+
+                    foreach (char c in arg)
                     {
-                        chains.Add(sw);
+                        if (char.IsLetterOrDigit(c))
+                            nArgs.Add($"-{c}");
+                        else continue;
                     }
-                    else continue;
-                }
-                System.Diagnostics.Debug.WriteLine($"");
-                if (chains.Count > 0)
-                    return chains.ToArray();
-            }
-            return new string[0];
-        }
 
-        private KeyValuePair<int, string[]>[] GetChainResults()
-        {
-            List<KeyValuePair<int, string[]>> values = new List<KeyValuePair<int, string[]>>();
-            var chains = GetChains();
-            for (int i = 0; i < chains.Length; i++)
-            {
-                var x = chains[i];
-                var c1 = x[0];
-                var c2 = x[1];
-                if ((c1 == '-' && c2 != '-') && x.Length > 2)
-                {
-                    List<string> sL = new List<string>();
-                    foreach (char c in x)
-                    {
-                        sL.Add($"-{c}");
-                    }
-                    if (sL.Count > 0)
-                        values.Add(new KeyValuePair<int, string[]>(i, sL.ToArray()));
-                    else
-                        continue;
+                    //Remove the original chain.
+                    arguments.RemoveAt(i);
+                    arguments.InsertRange(i, nArgs.ToArray());
                 }
-                else
-                    continue;
+                else continue; //Don't remap.
             }
-            return new KeyValuePair<int, string[]>[0];
-        }
-
-        private void MapChainedSwitches()
-        {
-            var x = GetChainResults();
-            Dictionary<int, List<string>> chainedResults = new Dictionary<int, List<string>>();
-            foreach (var x_ in x)
-            {
-                List<string> s_ = new List<string>();
-                var i = x_.Key;
-                foreach (string s in x_.Value)
-                {
-                    s_.Add(s);
-                }
-                chainedResults.Add(i, s_);
-            }
-
-            
         }
 
         #endregion

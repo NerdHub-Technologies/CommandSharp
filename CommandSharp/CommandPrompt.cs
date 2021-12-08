@@ -22,13 +22,15 @@ namespace CommandSharp
 {
     public sealed class CommandPrompt
     {
+        private ConsoleColor defaultFGCol = ConsoleColor.White, defaultBGCol = ConsoleColor.Black;
+
         /// <summary>
         /// Defines the forecolor to set when the prompt is loaded for the first time.
         /// </summary>
         public ConsoleColor DefaultForeColor
         {
-            get => GlobalSettings.DefaultForeColor;
-            set => GlobalSettings.DefaultForeColor = value;
+            get => defaultFGCol;
+            set => defaultFGCol = value;
         }
 
         /// <summary>
@@ -36,8 +38,8 @@ namespace CommandSharp
         /// </summary>
         public ConsoleColor DefaultBackColor
         {
-            get => GlobalSettings.DefaultBackColor;
-            set => GlobalSettings.DefaultBackColor = value;
+            get => defaultBGCol;
+            set => defaultBGCol = value;
         }
 
         /// <summary>
@@ -45,8 +47,8 @@ namespace CommandSharp
         /// </summary>
         public ConsoleColor CurrentForeColor
         {
-            get => GlobalSettings.CurrentForeColor;
-            set => GlobalSettings.CurrentForeColor = value;
+            get => Console.ForegroundColor;
+            set => Console.ForegroundColor = value;
         }
 
         /// <summary>
@@ -54,17 +56,19 @@ namespace CommandSharp
         /// </summary>
         public ConsoleColor CurrentBackColor
         {
-            get => GlobalSettings.CurrentBackColor;
-            set => GlobalSettings.CurrentBackColor = value;
+            get => Console.BackgroundColor;
+            set => Console.BackgroundColor = value;
         }
+
+        private bool acceptEcho = true;
 
         /// <summary>
         /// Denotes whether a echo (excluding echo commands) will be returned to the console.
         /// </summary>
         public bool AcceptEchoOut
         {
-            get => GlobalSettings.AcceptEchoOut;
-            set => GlobalSettings.AcceptEchoOut = value;
+            get => acceptEcho;
+            set => acceptEcho = value;
         }
 
 #if DEBUG
@@ -75,22 +79,30 @@ namespace CommandSharp
         }
 #endif
 
+        private string currUsr = "Administrator";
+
         /// <summary>
         /// Get or set the current user.
         /// </summary>
         public string CurrentUser
         {
-            get => GlobalSettings.CurrentUser;
-            set => GlobalSettings.CurrentUser = value;
+            get => currUsr;
+            set => currUsr = value;
         }
+
+        private string currDir = Directory.GetCurrentDirectory();
 
         /// <summary>
         /// Get or set the current directory.
         /// </summary>
         public string CurrentDirectory
         {
-            get => GlobalSettings.CurrentDirectory;
-            set => GlobalSettings.CurrentDirectory = Path.GetFullPath(value);
+            get => currDir ?? Directory.GetCurrentDirectory();
+            set
+            {
+                currDir = Path.GetFullPath(value);
+                Directory.SetCurrentDirectory(value);
+            }
         }
 
         /// <summary>
@@ -102,7 +114,7 @@ namespace CommandSharp
             set => GlobalSettings.MachineName = value;
         }
 
-        public EchoMessage EchoMessage { get; set; } = new EchoMessage(
+        private EchoMessage echoMsg = new EchoMessage(
             MessageNode.NewMessageNode("["),
             MessageNode.NewMessageNode("$", MessageNode.USERNAME.GetMessageColor()),
             MessageNode.USERNAME,
@@ -113,7 +125,16 @@ namespace CommandSharp
             MessageNode.NewMessageNode(" > ")
             );
 
-        private readonly string rawMsg = $"[$%user%@%sys%]: %path% > ";
+        public EchoMessage EchoMessage 
+        {
+            get => echoMsg;
+            set
+            {
+                if (value == null)
+                    throw new NullReferenceException("Cannot set a null Echo Message.");
+                echoMsg = value;
+            }
+        } 
 
         private CommandInvoker invoker = null;
         public CommandPrompt(CommandInvoker invoker = null)
@@ -134,6 +155,7 @@ namespace CommandSharp
             if (Utilities.IsNullWhiteSpaceOrEmpty(CurrentDirectory))
                 CurrentDirectory = Environment.CurrentDirectory;
             if (EchoMessage == null)
+            {
                 EchoMessage = new EchoMessage(
             MessageNode.NewMessageNode("["),
             MessageNode.NewMessageNode("$", MessageNode.USERNAME.GetMessageColor()),
@@ -142,8 +164,8 @@ namespace CommandSharp
             MessageNode.MACHINE_NAME,
             MessageNode.NewMessageNode("]: "),
             MessageNode.CURRENT_DIRECTORY,
-            MessageNode.NewMessageNode(" > ")
-            );
+            MessageNode.NewMessageNode(" > "));
+            }
         }
 
         /// <summary>
@@ -192,7 +214,7 @@ namespace CommandSharp
             }
 
             if (AcceptEchoOut)
-                EchoMessage.Display();
+                EchoMessage.Display(this);
             //Accept input.
             var input = Console.ReadLine();
             if (!Utilities.IsNullWhiteSpaceOrEmpty(input))

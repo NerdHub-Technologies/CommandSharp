@@ -118,6 +118,75 @@ namespace CommandSharp
             return dest.Substring(0, aStart) + dest.Substring(aStart + aCount, dest.Length - (aStart + aCount));
         }
 
+        public static T[] Add<T>(T[] arr, T item)
+        {
+            List<T> tL = new List<T>(arr.Length + 1);
+            foreach (T t in arr)
+                tL.Add(t);
+            tL.Add(item);
+            return tL.ToArray();
+        }
+
+        public static T[] InsertAt<T>(T[] arr, int index, T item)
+        {
+            List<T> tL = new List<T>(arr.Length + 1);
+            int n = 0;
+            for (int i = 0; i < tL.Capacity; i++)
+            {
+                if (i == index)
+                {
+                    tL.Add(item);
+                    n--; //Go back 1.
+                }
+                else
+                {
+                    var x = arr[n];
+                    tL.Add(x);
+                }
+                if (n < arr.Length)
+                    n++;
+            }
+            return tL.ToArray();
+        }
+
+        public static T[] InsertRangeAt<T>(T[] arr, int index, T[] range)
+        {
+            List<T> tL = new List<T>(arr.Length + range.Length);
+            int m = 0;
+            int n = 0;
+            for (int i = 0; i < tL.Capacity; i++)
+            {
+                //Check if the 'i'is inbetween the 'index' and 'endIndex'.
+                if (i <= (index + range.Length) && i >= index)
+                {
+                    //Add the range to the list.
+                    tL.Add(range[m]);
+                    if (!(n <= 0))
+                        n--;
+                }
+                else
+                {
+                    var x = arr[n];
+                    tL.Add(x);
+                }
+                if (m < range.Length)
+                    m++;
+                if (n < arr.Length)
+                    n++;
+            }
+            return tL.ToArray();
+        }
+
+        public static T[] AddRange<T>(T[] arr, T[] range)
+        {
+            List<T> tL = new List<T>(arr.Length + range.Length);
+            foreach (T t in arr)
+                tL.Add(t);
+            foreach (T r in range)
+                tL.Add(r);
+            return tL.ToArray();
+        }
+
         public static bool IsNull(string str)
             => str == null;
 

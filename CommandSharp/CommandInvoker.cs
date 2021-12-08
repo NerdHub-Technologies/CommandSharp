@@ -29,19 +29,29 @@ namespace CommandSharp
 
         #region Ctor and Internal Register
 
-        public CommandInvoker(bool parseQuotes = true, bool iqnoreInnerQuotes = false)
+        public CommandInvoker(bool parseQuotes = true, bool iqnoreInnerQuotes = false, bool registerMinimalCommands = false)
         {
             commands = new List<Commands.Command>();
 
             this.parseQuotes = parseQuotes;
             this.iqnoreInnerQuotes = iqnoreInnerQuotes;
 
-            RegisterInternalCommands();
+            RegisterInternalCommands(registerMinimalCommands);
         }
 
-        private void RegisterInternalCommands()
+        private void RegisterInternalCommands(bool registerMinimal)
         {
-            Register(new Command[]
+            if (registerMinimal)
+            {
+                Register(new Command[]
+                {
+                    new HelpCommand(),
+                    new ClearCommand()
+                });
+            }
+            else
+            {
+                Register(new Command[]
             {
                 new HelpCommand(),
                 new EchoCommand(),
@@ -51,6 +61,7 @@ namespace CommandSharp
                 new ListDirectoryCommand()
                 //new DataCalculatorCommand()
             });
+            }
         }
 
         #endregion
@@ -341,7 +352,7 @@ namespace CommandSharp
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>An array of data split either by quotes or by spaces.</returns>
-        private string[] ParseArguments(string input)
+        internal string[] ParseArguments(string input)
         {
             if (parseQuotes && (input.Contains("\"") || input.Contains("\\\"")))
             {
