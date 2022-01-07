@@ -1,0 +1,7 @@
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\bin\Release\net471\CommandSharp.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net471\CommandSharp.csproj.AssemblyReference.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net471\CommandSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net471\CommandSharp.AssemblyInfoInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net471\CommandSharp.AssemblyInfo.cs
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net471\CommandSharp.csproj.CoreCompileInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net471\CommandSharp.dll

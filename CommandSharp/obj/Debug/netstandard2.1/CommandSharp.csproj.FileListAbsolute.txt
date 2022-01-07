@@ -1,0 +1,8 @@
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Debug\netstandard2.1\CommandSharp.csproj.AssemblyReference.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Debug\netstandard2.1\CommandSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Debug\netstandard2.1\CommandSharp.AssemblyInfoInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Debug\netstandard2.1\CommandSharp.AssemblyInfo.cs
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Debug\netstandard2.1\CommandSharp.csproj.CoreCompileInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\bin\Debug\netstandard2.1\CommandSharp.deps.json
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\bin\Debug\netstandard2.1\CommandSharp.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Debug\netstandard2.1\CommandSharp.dll

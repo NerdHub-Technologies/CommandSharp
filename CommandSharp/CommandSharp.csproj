@@ -16,6 +16,7 @@
     <PackageTags>Commands;Command Processing;Command Invoking;Custom Commands;.NET6.0,C#</PackageTags>
     <PackageReleaseNotes>Added cd command, and started work on ls command. Created new Readme.md file, and cleaned up code.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">

@@ -1,0 +1,10 @@
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\bin\Release\net5.0\CommandSharp.deps.json
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\bin\Release\net5.0\CommandSharp.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\bin\Release\net5.0\ref\CommandSharp.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\CommandSharp.csproj.AssemblyReference.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\CommandSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\CommandSharp.AssemblyInfoInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\CommandSharp.AssemblyInfo.cs
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\CommandSharp.csproj.CoreCompileInputs.cache
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\CommandSharp.dll
+C:\Users\wr4729jz\source\repos\CommandSharp\CommandSharp\obj\Release\net5.0\ref\CommandSharp.dll
