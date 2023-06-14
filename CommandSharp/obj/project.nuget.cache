@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Npk8dqIbs028XPKWBqQgF9tTRZZ1KdwsQWk4yJPOrbrrs2j4MwKhPXj48bQwI1HZoDV4VlVH0jsC8qDaHa1nsg==",
+  "dgSpecHash": "S8aR7PpzJS5kt5KTv+1X6YqJoVel+82m01skQiR53Jiw0CwPYr1dZrlprjKaKdK3Rrmnsh6a0RU4q6N1525vYQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\CommandSharp\\CommandSharp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Chris\\Source\\Repos\\commandsharp\\CommandSharp\\CommandSharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Chris\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\Chris\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\Chris\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+  ],
   "logs": []
 }

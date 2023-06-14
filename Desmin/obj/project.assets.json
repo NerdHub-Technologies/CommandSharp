@@ -27,23 +27,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\wr4729jz\\.nuget\\packages\\": {},
+    "C:\\Users\\Chris\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\Desmin\\Desmin.csproj",
+      "projectUniqueName": "C:\\Users\\Chris\\Source\\Repos\\commandsharp\\Desmin\\Desmin.csproj",
       "projectName": "Desmin",
-      "projectPath": "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\Desmin\\Desmin.csproj",
-      "packagesPath": "C:\\Users\\wr4729jz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\Desmin\\obj\\",
+      "projectPath": "C:\\Users\\Chris\\Source\\Repos\\commandsharp\\Desmin\\Desmin.csproj",
+      "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Chris\\Source\\Repos\\commandsharp\\Desmin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\wr4729jz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -53,15 +53,14 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Users\\wr4729jz\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\CommandSharp\\CommandSharp.csproj": {
-              "projectPath": "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\CommandSharp\\CommandSharp.csproj"
+            "C:\\Users\\Chris\\Source\\Repos\\commandsharp\\CommandSharp\\CommandSharp.csproj": {
+              "projectPath": "C:\\Users\\Chris\\Source\\Repos\\commandsharp\\CommandSharp\\CommandSharp.csproj"
             }
           }
         }
@@ -81,7 +80,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -90,7 +90,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
