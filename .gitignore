@@ -1,0 +1,11 @@
+## .NET Build Artifacts
+obj/
+bin/
+*.user
+*.suo
+.vs/
+*.nupkg
+*.snupkg
+
+## NativeAOT / publish output
+publish/

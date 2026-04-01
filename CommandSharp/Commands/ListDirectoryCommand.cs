@@ -11,11 +11,12 @@
  */
 
 using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+#if !COSMOS
+using System.IO;
+#endif
 
 namespace CommandSharp.Commands
 {
@@ -27,6 +28,12 @@ namespace CommandSharp.Commands
 
         public override bool OnInvoke(CommandInvokeParameters e)
         {
+#if COSMOS
+            // Filesystem listing is not supported in Cosmos Gen3. Override this command in your
+            // Cosmos kernel to provide platform-specific directory listing if needed.
+            Console.WriteLine("ls: filesystem operations are not supported in the current environment.");
+            return true;
+#else
             var args = e.Arguments;
             if (args.IsEmpty)
             {
@@ -90,8 +97,10 @@ namespace CommandSharp.Commands
                 }
             }
             return true;
+#endif
         }
 
+#if !COSMOS
         private string ExcludeParentDir(string dir, string parentDir)
         {
             dir = dir.Remove(0, parentDir.Length);
@@ -99,7 +108,9 @@ namespace CommandSharp.Commands
                 dir = dir.Remove(0, 1);
             return dir;
         }
+#endif
     }
 
     
 }
+

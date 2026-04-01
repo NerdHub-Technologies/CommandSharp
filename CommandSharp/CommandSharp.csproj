@@ -1,22 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.1;netcoreapp3.1;net471;net6.0</TargetFrameworks>
+    <!--
+      cosmos-main branch: NativeAOT / Cosmos Gen3 compatible build.
+      - net8.0 is the primary target for NativeAOT publishing.
+      - Define COSMOS when building for Cosmos Gen3 (e.g. -p:DefineConstants=COSMOS).
+      - Legacy frameworks are retained for non-AOT consumers.
+    -->
+    <TargetFrameworks>net5.0;netstandard2.1;netcoreapp3.1;net471;net6.0;net8.0</TargetFrameworks>
     <DebugType>embedded</DebugType>
-    <Version>2.15.0</Version>
+    <Version>2.16.0</Version>
     <Authors>NerdHub Technologie,WinMister332</Authors>
     <Company>NerdHub Technologies</Company>
-    <Description>CommandSharp is a command processing API for .NET built with C#.</Description>
-    <Copyright>Copyright (c) 2017-2022 NerdHub Technologies, All rights reserved.</Copyright>
-    <PackageProjectUrl>https://www.bitbucket.org/nerdhubtech/CommandSharp/</PackageProjectUrl>
+    <Description>CommandSharp is a command processing API for .NET built with C#. This branch (cosmos-main) is NativeAOT / Cosmos Gen3 compatible.</Description>
+    <Copyright>Copyright (c) 2017-2024 NerdHub Technologies, All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/NerdHub-Technologies/CommandSharp</PackageProjectUrl>
     <PackageIcon>CommandSharp.png</PackageIcon>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <RepositoryUrl>https://bitbucket.org/nerdhubtech/commandsharp</RepositoryUrl>
+    <RepositoryUrl>https://github.com/NerdHub-Technologies/CommandSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Commands;Command Processing;Command Invoking;Custom Commands;.NET6.0,C#</PackageTags>
-    <PackageReleaseNotes>Added cd command, and started work on ls command. Created new Readme.md file, and cleaned up code.</PackageReleaseNotes>
+    <PackageTags>Commands;Command Processing;Command Invoking;Custom Commands;NativeAOT;Cosmos;C#</PackageTags>
+    <PackageReleaseNotes>cosmos-main: NativeAOT and Cosmos Gen3 compatibility. Removed EventArgs dependency, gated System.IO and Environment APIs behind #if !COSMOS.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <!-- Mark the library as AOT-compatible so consuming AOT projects get a clean analysis. -->
+    <IsAotCompatible Condition="'$(TargetFramework)' == 'net8.0'">true</IsAotCompatible>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
@@ -24,6 +32,14 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 

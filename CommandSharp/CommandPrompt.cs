@@ -11,11 +11,12 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
+
+#if !COSMOS
+using System.IO;
+#endif
 
 
 namespace CommandSharp
@@ -90,18 +91,34 @@ namespace CommandSharp
             set => currUsr = value;
         }
 
+        // In COSMOS mode there is no file-system; default to "/".
+#if COSMOS
+        private string currDir = "/";
+#else
         private string currDir = Directory.GetCurrentDirectory();
+#endif
 
         /// <summary>
         /// Get or set the current directory.
         /// </summary>
         public string CurrentDirectory
         {
-            get => currDir ?? Directory.GetCurrentDirectory();
+            get
+            {
+#if COSMOS
+                return currDir;
+#else
+                return currDir ?? Directory.GetCurrentDirectory();
+#endif
+            }
             set
             {
+#if COSMOS
+                currDir = value;
+#else
                 currDir = Path.GetFullPath(value);
                 Directory.SetCurrentDirectory(value);
+#endif
             }
         }
 
@@ -148,12 +165,14 @@ namespace CommandSharp
 #if DEBUG
             OutputDebugData = false;
 #endif
+#if !COSMOS
             if (Utilities.IsNullWhiteSpaceOrEmpty(CurrentUser))
                 CurrentUser = Environment.UserName;
             if (Utilities.IsNullWhiteSpaceOrEmpty(MachineName))
-                CurrentUser = Environment.MachineName;
+                MachineName = Environment.MachineName;
             if (Utilities.IsNullWhiteSpaceOrEmpty(CurrentDirectory))
                 CurrentDirectory = Environment.CurrentDirectory;
+#endif
             if (EchoMessage == null)
             {
                 EchoMessage = new EchoMessage(
@@ -195,14 +214,15 @@ namespace CommandSharp
             {
                 var errMsg = $"Unhandled Exception:" + Environment.NewLine + ex.ToString();
                 Console.WriteLine(errMsg);
+#if !COSMOS
                 System.Diagnostics.Debug.WriteLine(errMsg);
+#endif
             }
         }
 
         /// <summary>
         /// Show a prompt and accept command input.
         /// </summary>
-        /// <param name="loop">Defines whether looping is handled by the prompt or by another process or thread.</param>
         private void DisplayPrompt()
         {
             if (doOnce)
@@ -223,12 +243,14 @@ namespace CommandSharp
                 return;
         }
 
+#if !COSMOS
         private string SetCur(string currentDirectory)
         {
             currentDirectory = Path.GetFullPath(currentDirectory);
             Environment.CurrentDirectory = currentDirectory;
             return Environment.CurrentDirectory;
         }
+#endif
 
         /// <summary>
         /// If true, the current prompt will stop being shown.
@@ -240,3 +262,4 @@ namespace CommandSharp
         }
     }
 }
+

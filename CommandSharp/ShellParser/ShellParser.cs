@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CommandSharp.ShellParser
 {
@@ -31,6 +29,10 @@ namespace CommandSharp.ShellParser
         //For now, keep things simple.
         public void ParseShell(string path, string EOL = "\n", bool forceDSH = false)
         {
+#if COSMOS
+            // Shell file parsing requires filesystem access, which is not available in Cosmos Gen3.
+            throw new NotSupportedException("ParseShell requires filesystem access and is not supported in Cosmos mode.");
+#else
             System.IO.Path.GetFullPath(path);
             var ext = System.IO.Path.GetExtension(path);
             if (forceDSH && ext != ".dsh")
@@ -47,7 +49,7 @@ namespace CommandSharp.ShellParser
             }
 
             //Handle the check and invokation.
-
+#endif
         }
     }
 
@@ -107,3 +109,4 @@ namespace CommandSharp.ShellParser
         }
     }
 }
+

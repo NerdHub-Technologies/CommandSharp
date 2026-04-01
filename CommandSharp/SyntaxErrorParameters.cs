@@ -11,16 +11,13 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace CommandSharp
 {
-    //FOR COSMOS PORT, REMOVE EVENTARGS
-    public class SyntaxErrorParameters : EventArgs
+    // EventArgs dependency removed for NativeAOT / Cosmos Gen3 compatibility.
+    public class SyntaxErrorParameters
     {
         public string CommandNamePassed { get; internal set; }
         internal string[] GetLegendArr() => new string[]
@@ -75,3 +72,4 @@ namespace CommandSharp
         }
     }
 }
+

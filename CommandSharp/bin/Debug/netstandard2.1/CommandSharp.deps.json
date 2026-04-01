@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "CommandSharp/2.15.0": {
+      "CommandSharp/2.16.0": {
         "runtime": {
           "CommandSharp.dll": {}
         }
@@ -15,7 +15,7 @@
     }
   },
   "libraries": {
-    "CommandSharp/2.15.0": {
+    "CommandSharp/2.16.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

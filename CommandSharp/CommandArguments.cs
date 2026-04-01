@@ -12,10 +12,7 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace CommandSharp
@@ -391,7 +388,7 @@ namespace CommandSharp
                 var arg = GetArgumentAtPosition(position);
                 var c1 = arg[0];
                 var c2 = arg[1];
-                if ((c1 == '-' && c2 != '-') && arg.Contains('='))
+                if ((c1 == '-' && c2 != '-') && arg.Contains("="))
                     return arg;
             }
             return "";
@@ -419,7 +416,7 @@ namespace CommandSharp
                 var arg = GetArgumentAtPosition(position);
                 var c1 = arg[0];
                 var c2 = arg[1];
-                if ((c1 == '-' || (c1 == '-' && c2 == '-')) && arg.Contains(':'))
+                if ((c1 == '-' || (c1 == '-' && c2 == '-')) && arg.Contains(":"))
                     return arg;
             }
             return "";

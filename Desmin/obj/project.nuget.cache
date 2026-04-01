@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "9j6IwwuqfINtK+a0kAr6EWv7L6n7GoTJ4mP4efYYa/07LqKRpF43SXc0Iv3cf/2+Z5JCTqVUQasPk379cU7WDw==",
+  "dgSpecHash": "ZD/+gMujNPs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\wr4729jz\\source\\repos\\CommandSharp\\Desmin\\Desmin.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/runner/work/CommandSharp/CommandSharp/Desmin/Desmin.csproj",
+  "expectedPackageFiles": [
+    "/tmp/codeql-scratch-55f18c6c3af6e5d4/dbs/csharp/working/packages/microsoft.netcore.app.ref/6.0.36/microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "/tmp/codeql-scratch-55f18c6c3af6e5d4/dbs/csharp/working/packages/microsoft.aspnetcore.app.ref/6.0.36/microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "/tmp/codeql-scratch-55f18c6c3af6e5d4/dbs/csharp/working/packages/microsoft.netcore.app.host.linux-x64/6.0.36/microsoft.netcore.app.host.linux-x64.6.0.36.nupkg.sha512"
+  ],
   "logs": []
 }

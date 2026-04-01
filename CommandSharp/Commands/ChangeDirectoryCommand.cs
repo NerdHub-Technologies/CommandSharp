@@ -12,10 +12,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+#if !COSMOS
 using System.IO;
+#endif
 
 namespace CommandSharp.Commands
 {
@@ -27,6 +28,12 @@ namespace CommandSharp.Commands
 
         public override bool OnInvoke(CommandInvokeParameters e)
         {
+#if COSMOS
+            // Filesystem navigation is not supported in Cosmos Gen3. Override this command in your
+            // Cosmos kernel to provide platform-specific directory navigation if needed.
+            Console.WriteLine("cd: filesystem operations are not supported in the current environment.");
+            return true;
+#else
             var args = e.Arguments;
             var nPath = args.GetArgumentAtPosition(0);
             if (args.IsEmpty)
@@ -43,7 +50,6 @@ namespace CommandSharp.Commands
                 else if (nPath == "..")
                 {
                     //Navigate to the parent directory if any.
-                    var curr = Directory.GetCurrentDirectory();
                     var par = Directory.GetParent(Directory.GetCurrentDirectory());
                     if (par != null)
                     {
@@ -123,24 +129,10 @@ namespace CommandSharp.Commands
                 }
             }
             return true;
+#endif
         }
 
         public override string OnSyntaxError(SyntaxErrorParameters e)
             => e.CommandNamePassed + " <name | path>";
     }
 }
-
-/* Path validation:
- * 
- * Check if the path is a drive (windows) or a root. ('/' unix)
- * Check if the path is a relative token. ('~', '.', '..', '@', or ':')
- * Check if the path is relative and is a child folder. Or a parent folder if starts with '..'.
- * Check if the path is a full path and exists on the system.
- */
-
-/* DuskOS Relative tokens:
- * 
- * '@': Get first file with name. Searches all child directories for the folder of the specified name.
- * ':' Get first file with name. Searches all parent directories for the folder of the specified name.
- * '@:' Search all child and parent directories for the first file with the specified name.
- */
